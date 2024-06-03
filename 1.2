@@ -1,0 +1,100 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string getMonthMeaning(int month) {
+    switch (month) {
+        case 1: return "January means Janus";
+        case 2: return "February means purification";
+        case 3: return "March means Mars";
+        case 4: return "April means Aphrodite";
+        case 5: return "May means Maia";
+        case 6: return "June means Juno";
+        case 7: return "July means Julius Caesar";
+        case 8: return "August means Augustus";
+        case 9: return "September means the seventh month";
+        case 10: return "October means the eighth month";
+        case 11: return "November means the ninth month";
+        case 12: return "December means the tenth month";
+        default: return "Invalid month";
+    }
+}
+
+string getDayMeaning(int day) {
+    switch (day) {
+        case 1: return "The 1st of the month means Self-Started";
+        case 2: return "The 2nd of the month means Diplomatic";
+        case 3: return "The 3rd of the month means Outgoing";
+        case 4: return "The 4th of the month means Hard Worker";
+        case 5: return "The 5th of the month means Flexible";
+        case 6: return "The 6th of the month means Responsible";
+        case 7: return "The 7th of the month means Reflective";
+        case 8: return "The 8th of the month means Powerful";
+        case 9: return "The 9th of the month means Humanitarian";
+        case 10: return "The 10th of the month means Leader";
+        case 11: return "The 11th of the month means Visionary";
+        case 12: return "The 12th of the month means Creative";
+        case 13: return "The 13th of the month means Practical";
+        case 14: return "The 14th of the month means Changeable";
+        case 15: return "The 15th of the month means Domestic";
+        case 16: return "The 16th of the month means Curious";
+        case 17: return "The 17th of the month means Ambitious";
+        case 18: return "The 18th of the month means Compassionate";
+        case 19: return "The 19th of the month means Independent";
+        case 20: return "The 20th of the month means Diplomatic";
+        case 21: return "The 21st of the month means Creative";
+        case 22: return "The 22nd of the month means Master Builder";
+        case 23: return "The 23rd of the month means Adventurous";
+        case 24: return "The 24th of the month means Nurturing";
+        case 25: return "The 25th of the month means Analytical";
+        case 26: return "The 26th of the month means Powerful";
+        case 27: return "The 27th of the month means Humanitarian";
+        case 28: return "The 28th of the month means Independent";
+        case 29: return "The 29th of the month means Intuitive";
+        case 30: return "The 30th of the month means Expressive";
+        case 31: return "The 31st of the month means Practical";
+        default: return "Invalid day";
+    }
+}
+
+string getYearMeaning(int year) {
+    if (year >= 2000 && year <= 2003) return "You are a Millennial";
+    if (year >= 2004 && year <= 2007) return "You are a Gen Z";
+    if (year >= 2008 && year <= 2011) return "You are a Gen Alpha";
+    if (year >= 2012 && year <= 2015) return "You are a Gen Alpha";
+    if (year >= 2016 && year <= 2019) return "You are a Gen Alpha";
+    if (year >= 2020 && year <= 2023) return "You are a Pandemic Baby";
+    return "Invalid year";
+}
+
+int main() {
+    int month, day, year;
+    char tryAgain;
+
+    cout << "Welcome to Birthday Date Meaning Generator!" << endl;
+
+    do {
+        // Get birthday details
+        cout << "Please enter the month of your birthday (1-12): ";
+        cin >> month;
+        cout << "Please enter the day of your birthday (1-31): ";
+        cin >> day;
+        cout << "Please enter the year of your birthday (2000-2023): ";
+        cin >> year;
+
+        // Display meanings
+        cout << getMonthMeaning(month) << endl;
+        cout << getDayMeaning(day) << endl;
+        cout << getYearMeaning(year) << endl;
+
+        // Ask if user wants to try another one
+        cout << "Would you like to try another one? (Y/N): ";
+        cin >> tryAgain;
+
+    } while (tryAgain == 'Y' || tryAgain == 'y');
+
+    cout << "Thanks for playing!" << endl;
+
+    return 0;
+}
