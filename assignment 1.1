@@ -1,0 +1,100 @@
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+using namespace std;
+bool isOperator(char c) {
+return c == &#39;+&#39; || c == &#39;-&#39; || c == &#39;*&#39; || c == &#39;/&#39; || c == &#39;^&#39;;
+}
+bool isDigit(char c) {
+return c &gt;= &#39;0&#39; &amp;&amp; c &lt;= &#39;9&#39;;
+}
+int findNextOperatorIndex(const string&amp; problem, int startIndex) {
+int parentheses = 0;
+for (int i = startIndex; i &lt; problem.length(); ++i) {
+if (problem[i] == &#39;(&#39;) {
+parentheses++;
+} else if (problem[i] == &#39;)&#39;) {
+parentheses--;
+} else if (parentheses == 0 &amp;&amp; isOperator(problem[i])) {
+return i;
+}
+}
+return -1;
+}
+double evaluateOperation(double operand1, char op, double operand2) {
+switch (op) {
+case &#39;+&#39;:
+return operand1 + operand2;
+case &#39;-&#39;:
+return operand1 - operand2;
+case &#39;*&#39;:
+return operand1 * operand2;
+case &#39;/&#39;:
+if (operand2 == 0) {
+
+cout &lt;&lt; &quot;Error: Division by zero!&quot; &lt;&lt; endl;
+exit(EXIT_FAILURE);
+}
+return operand1 / operand2;
+case &#39;^&#39;:
+return pow(operand1, operand2);
+default:
+cout &lt;&lt; &quot;Error: Invalid operator!&quot; &lt;&lt; endl;
+exit(EXIT_FAILURE);
+}
+}
+double solveProblem(string problem) {
+while (true) {
+int startIndex = 0;
+int endIndex = 0;
+char op;
+bool foundOperator = false;
+// Find next operator
+for (int i = 0; i &lt; problem.length(); ++i) {
+if (problem[i] == &#39;(&#39;) {
+startIndex = i;
+} else if (problem[i] == &#39;)&#39;) {
+endIndex = i;
+foundOperator = true;
+break;
+} else if (isOperator(problem[i])) {
+endIndex = i;
+op = problem[i];
+foundOperator = true;
+break;
+}
+}
+if (!foundOperator) {
+break; // No more operators found
+}
+// Evaluate the operation
+string operand1_str = problem.substr(startIndex + 1, endIndex - startIndex - 1);
+double operand1 = stod(operand1_str);
+int nextOperatorIndex = findNextOperatorIndex(problem, endIndex + 1);
+string operand2_str = problem.substr(endIndex + 2, nextOperatorIndex - endIndex
+- 2);
+
+double operand2 = stod(operand2_str);
+double result = evaluateOperation(operand1, op, operand2);
+// Replace the operation with the result
+problem.replace(startIndex, nextOperatorIndex - startIndex, to_string(result));
+}
+return stod(problem);
+}
+int main() {
+char choice;
+do {
+cout &lt;&lt; &quot;Enter a problem to solve: &quot;;
+string problem;
+getline(cin, problem);
+cout &lt;&lt; &quot;Here are the steps:&quot; &lt;&lt; endl;
+cout &lt;&lt; problem &lt;&lt; endl;
+double answer = solveProblem(problem);
+cout &lt;&lt; &quot;The answer to this problem is &quot; &lt;&lt; answer &lt;&lt; &quot;.&quot; &lt;&lt; endl;
+cout &lt;&lt; &quot;Would you like to solve another problem? (Y/N) &quot;;
+cin &gt;&gt; choice;
+cin.ignore(); // Clear the newline character from the buffer
+} while (toupper(choice) == &#39;Y&#39;);
+cout &lt;&lt; &quot;Thank you for using this calculator!&quot; &lt;&lt; endl;
+return 0;
+}
