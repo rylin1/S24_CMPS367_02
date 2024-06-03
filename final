@@ -1,0 +1,87 @@
+using namespace std;
+
+void bubbleSort(int arr[], int n) {
+    // Base case
+    if (n == 1)
+        return;
+
+  
+    for (int i = 0; i < n - 1; i++) {
+        if (arr[i] > arr[i + 1])
+            swap(arr[i], arr[i + 1]);
+    }
+
+    bubbleSort(arr, n - 1);
+}
+
+
+double calculateAverage(int arr[], int n, int pointsPossible) {
+    int total = 0;
+    for (int i = 0; i < n; i++) {
+        total += arr[i];
+    }
+    return ((double)total / (n * pointsPossible)) * 100;
+}
+
+
+int findMinimum(int arr[], int n) {
+    return *min_element(arr, arr + n);
+}
+
+
+int findMaximum(int arr[], int n) {
+    return *max_element(arr, arr + n);
+}
+
+int main() {
+    string courseDept, courseName;
+    int courseNum, pointsPossible, numStudents;
+
+    cout << "Welcome to Grade Calculator!" << endl;
+
+
+    cout << "Enter the course dept: ";
+    cin >> courseDept;
+    cout << "Enter the course number: ";
+    cin >> courseNum;
+    cout << "Enter the course name: ";
+    cin.ignore(); // To ignore the newline character left by previous input
+    getline(cin, courseName);
+
+
+    cout << "Enter points possible: ";
+    cin >> pointsPossible;
+    cout << "Enter the number of students that will be scored: ";
+    cin >> numStudents;
+
+ 
+    int *scores = new int[numStudents];
+
+    
+    for (int i = 0; i < numStudents; i++) {
+        cout << "Enter the score for student " << i + 1 << ": ";
+        cin >> scores[i];
+    }
+
+    bubbleSort(scores, numStudents);
+
+    double average = calculateAverage(scores, numStudents, pointsPossible);
+    int minimum = findMinimum(scores, numStudents);
+    int maximum = findMaximum(scores, numStudents);
+
+
+    cout << "\nCourse: " << courseDept << " " << courseNum << ": " << courseName << endl;
+    cout << "Scores: ";
+    for (int i = 0; i < numStudents; i++) {
+        cout << scores[i] << " ";
+    }
+    cout << "\nAverage: " << average << "%" << endl;
+    cout << "Lowest Score: " << minimum << endl;
+    cout << "Highest Score: " << maximum << endl;
+    cout << "Thank you for using the grade calculator!" << endl;
+
+   
+    delete[] scores;
+
+    return 0;
+}
